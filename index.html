@@ -1,25 +1,136 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="id">
 <head>
-  <title> H5P Standalone on GitHub Pages </title>
-  <link type="text/css" rel="stylesheet" media="all" href="./dist/styles/h5p.css" />
-  <meta charset="utf-8" />
-  <script type="text/javascript" src="./dist/main.bundle.js"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Pengenalan Hewan Laut</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap');
+
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(to bottom, #0099cc, #004466);
+      color: #e0f7fa;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 2rem;
+    }
+    header {
+      text-align: center;
+      margin-bottom: 2rem;
+      text-shadow: 2px 2px 5px #003344;
+    }
+    header h1 {
+      font-size: 3rem;
+      margin-bottom: 0.3rem;
+    }
+    header p {
+      font-size: 1.2rem;
+      font-weight: 300;
+      color: #b2ebf2;
+    }
+
+    .animal-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+      width: 100%;
+      max-width: 1200px;
+    }
+
+    .card {
+      background: rgba(0, 68, 102, 0.7);
+      border-radius: 12px;
+      box-shadow: 0 8px 15px rgba(0,0,0,0.35);
+      overflow: hidden;
+      transition: transform 0.3s ease;
+      cursor: default;
+    }
+    .card:hover {
+      transform: scale(1.05);
+      box-shadow: 0 12px 20px rgba(0,0,0,0.5);
+    }
+
+    .card img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      display: block;
+      border-bottom: 2px solid #00bcd4;
+    }
+
+    .card-content {
+      padding: 1rem 1.2rem;
+    }
+
+    .card-content h2 {
+      margin: 0 0 0.5rem 0;
+      font-weight: 600;
+      color: #00bcd4;
+      text-shadow: 1px 1px 2px #002f3d;
+    }
+    .card-content p {
+      margin: 0;
+      font-weight: 300;
+      color: #cce7eb;
+      line-height: 1.4;
+    }
+
+    footer {
+      margin-top: 3rem;
+      font-size: 0.9rem;
+      color:#88d1e0;
+      text-align: center;
+      text-shadow: 1px 1px 2px #002f3d;
+    }
+  </style>
 </head>
-
 <body>
-  <div id="h5p-container"></div>
-  <script type="text/javascript">
-    const {
-      H5P
-    } = H5PStandalone;
-    new H5P(document.getElementById('h5p-container'), {
-    h5pJsonPath: 'h5p-content',
-      frameJs: './dist/frame.bundle.js',
-      frameCss: './dist/styles/h5p.css'
-    });
-  </script>
-</body>
+  <header>
+    <h1>Pengenalan Hewan Laut</h1>
+    <p>Jelajahi keindahan dan keunikan hewan-hewan yang hidup di lautan</p>
+  </header>
 
+  <main class="animal-grid">
+    <article class="card">
+      <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=600&q=60" alt="Paus Biru" />
+      <div class="card-content">
+        <h2>Paus Biru</h2>
+        <p>Paus biru adalah hewan terbesar di dunia, dengan panjang mencapai lebih dari 30 meter. Mereka sering ditemukan di lautan dalam seluruh dunia.</p>
+      </div>
+    </article>
+
+    <article class="card">
+      <img src="https://images.unsplash.com/photo-1563306406-35a443d47f8d?auto=format&fit=crop&w=600&q=60" alt="Penyu Laut" />
+      <div class="card-content">
+        <h2>Penyu Laut</h2>
+        <p>Penyu laut dikenal dengan cangkangnya yang keras dan kecepatan berenangnya yang luar biasa. Mereka berperan penting dalam menjaga keseimbangan ekosistem laut.</p>
+      </div>
+    </article>
+
+    <article class="card">
+      <img src="https://images.unsplash.com/photo-1549924231-f129b911e442?auto=format&fit=crop&w=600&q=60" alt="Lumba-lumba" />
+      <div class="card-content">
+        <h2>Lumba-lumba</h2>
+        <p>Lumba-lumba terkenal akan kecerdasannya dan tingkah lakunya yang ramah. Mereka sering terlihat berenang berkelompok di perairan hangat.</p>
+      </div>
+    </article>
+
+    <article class="card">
+      <img src="https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0?auto=format&fit=crop&w=600&q=60" alt="Ikan Badut" />
+      <div class="card-content">
+        <h2>Ikan Badut</h2>
+        <p>Ikan badut hidup berasosiasi dengan anemon laut. Warna cerahnya membantu mereka berkamuflase dan menarik perhatian di terumbu karang.</p>
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    &copy; 2024 Pengenalan Hewan Laut - Dibuat dengan cinta dari lautan.
+  </footer>
+</body>
 </html>
+
