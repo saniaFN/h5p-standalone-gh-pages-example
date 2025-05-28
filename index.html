@@ -3,34 +3,38 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Pengenalan Hewan Laut</title>
+  <title>Pengenalan Hewan Laut Interaktif</title>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap');
-
+    * {
+      box-sizing: border-box;
+    }
     body {
       margin: 0;
       font-family: 'Poppins', sans-serif;
-      background: linear-gradient(to bottom, #0099cc, #004466);
-      color: #e0f7fa;
+      background: linear-gradient(to bottom, #0077b6, #023e8a);
+      color: #cce7eb;
       min-height: 100vh;
       display: flex;
       flex-direction: column;
       align-items: center;
-      padding: 2rem;
+      padding: 2rem 1rem 3rem;
+      -webkit-font-smoothing: antialiased;
     }
     header {
       text-align: center;
       margin-bottom: 2rem;
-      text-shadow: 2px 2px 5px #003344;
+      text-shadow: 2px 2px 5px #001f3f;
+      user-select: none;
     }
     header h1 {
       font-size: 3rem;
       margin-bottom: 0.3rem;
     }
     header p {
-      font-size: 1.2rem;
       font-weight: 300;
-      color: #b2ebf2;
+      font-size: 1.2rem;
+      color: #90e0ef;
     }
 
     .animal-grid {
@@ -38,99 +42,149 @@
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
       gap: 2rem;
       width: 100%;
-      max-width: 1200px;
+      max-width: 1100px;
     }
 
     .card {
-      background: rgba(0, 68, 102, 0.7);
-      border-radius: 12px;
-      box-shadow: 0 8px 15px rgba(0,0,0,0.35);
+      background: rgba(3, 37, 65, 0.85);
+      border-radius: 14px;
+      box-shadow: 0 8px 15px rgba(0,0,0,0.6);
+      color: #caf0f8;
+      cursor: pointer;
       overflow: hidden;
-      transition: transform 0.3s ease;
-      cursor: default;
+      position: relative;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      user-select: none;
     }
     .card:hover {
-      transform: scale(1.05);
-      box-shadow: 0 12px 20px rgba(0,0,0,0.5);
+      transform: translateY(-6px);
+      box-shadow: 0 14px 25px rgba(0,0,0,0.7);
     }
 
     .card img {
       width: 100%;
       height: 180px;
       object-fit: cover;
+      border-bottom: 3px solid #00b4d8;
+      transition: transform 0.3s ease;
       display: block;
-      border-bottom: 2px solid #00bcd4;
+      border-radius: 14px 14px 0 0;
     }
 
-    .card-content {
-      padding: 1rem 1.2rem;
-    }
-
-    .card-content h2 {
-      margin: 0 0 0.5rem 0;
+    .card-title {
+      text-align: center;
       font-weight: 600;
-      color: #00bcd4;
-      text-shadow: 1px 1px 2px #002f3d;
-    }
-    .card-content p {
-      margin: 0;
-      font-weight: 300;
-      color: #cce7eb;
-      line-height: 1.4;
+      font-size: 1.4rem;
+      padding: 0.8rem 1rem 0.6rem;
+      color: #00b4d8;
+      text-shadow: 1px 1px 2px #002741;
+      user-select: none;
     }
 
-    footer {
+    /* Hidden explanation text by default */
+    .explanation {
+      max-height: 0;
+      opacity: 0;
+      overflow: hidden;
+      padding: 0 1rem;
+      font-weight: 300;
+      font-size: 0.95rem;
+      line-height: 1.5;
+      color: #caf0f8;
+      text-align: justify;
+      transition: max-height 0.4s ease, opacity 0.4s ease;
+      user-select: text;
+      border-top: 1px solid #0077b6;
+      margin: 0 1rem 1rem;
+      border-radius: 0 0 14px 14px;
+      background: rgba(0, 123, 167, 0.2);
+    }
+
+    /* Show explanation when active */
+    .card.active .explanation {
+      max-height: 300px;
+      opacity: 1;
+      padding-top: 0.6rem;
+      margin-bottom: 1rem;
+    }
+
+   footer {
       margin-top: 3rem;
       font-size: 0.9rem;
-      color:#88d1e0;
+      color:#90e0ef;
       text-align: center;
-      text-shadow: 1px 1px 2px #002f3d;
+      text-shadow: 1px 1px 3px #002741;
+      user-select: none;
+    }
+
+    @media (max-width: 400px) {
+      header h1 {
+        font-size: 2rem;
+      }
     }
   </style>
 </head>
 <body>
   <header>
-    <h1>Pengenalan Hewan Laut</h1>
-    <p>Jelajahi keindahan dan keunikan hewan-hewan yang hidup di lautan</p>
+    <h1>Pengenalan Hewan Laut Interaktif</h1>
+    <p>Klik gambar hewan laut untuk melihat penjelasannya</p>
   </header>
 
-  <main class="animal-grid">
-    <article class="card">
+  <main class="animal-grid" role="list">
+    <article class="card" tabindex="0" role="listitem" aria-expanded="false" aria-label="Paus Biru. Klik untuk melihat penjelasan">
       <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=600&q=60" alt="Paus Biru" />
-      <div class="card-content">
-        <h2>Paus Biru</h2>
-        <p>Paus biru adalah hewan terbesar di dunia, dengan panjang mencapai lebih dari 30 meter. Mereka sering ditemukan di lautan dalam seluruh dunia.</p>
+      <div class="card-title">Paus Biru</div>
+      <div class="explanation">
+        Paus biru adalah hewan terbesar di dunia, bisa mencapai panjang lebih dari 30 meter dan berat hingga 180 ton. Mereka hidup di lautan dalam dan diketahui bernyanyi untuk berkomunikasi jarak jauh.
       </div>
     </article>
 
-    <article class="card">
+    <article class="card" tabindex="0" role="listitem" aria-expanded="false" aria-label="Penyu Laut. Klik untuk melihat penjelasan">
       <img src="https://images.unsplash.com/photo-1563306406-35a443d47f8d?auto=format&fit=crop&w=600&q=60" alt="Penyu Laut" />
-      <div class="card-content">
-        <h2>Penyu Laut</h2>
-        <p>Penyu laut dikenal dengan cangkangnya yang keras dan kecepatan berenangnya yang luar biasa. Mereka berperan penting dalam menjaga keseimbangan ekosistem laut.</p>
+      <div class="card-title">Penyu Laut</div>
+      <div class="explanation">
+        Penyu laut merupakan reptil laut dengan cangkang keras yang membantu melindunginya dari predator. Penyu ini juga berperan menjaga keseimbangan ekosistem laut dan beberapa spesiesnya melakukan migrasi jarak jauh.
       </div>
     </article>
 
-    <article class="card">
+    <article class="card" tabindex="0" role="listitem" aria-expanded="false" aria-label="Lumba-Lumba. Klik untuk melihat penjelasan">
       <img src="https://images.unsplash.com/photo-1549924231-f129b911e442?auto=format&fit=crop&w=600&q=60" alt="Lumba-lumba" />
-      <div class="card-content">
-        <h2>Lumba-lumba</h2>
-        <p>Lumba-lumba terkenal akan kecerdasannya dan tingkah lakunya yang ramah. Mereka sering terlihat berenang berkelompok di perairan hangat.</p>
+      <div class="card-title">Lumba-Lumba</div>
+      <div class="explanation">
+        Lumba-lumba dikenal sangat cerdas dan suka berinteraksi sosial. Mereka berburu berkelompok dan menggunakan suara untuk berkomunikasi dan navigasi melalui ekolokasi.
       </div>
     </article>
 
-    <article class="card">
+    <article class="card" tabindex="0" role="listitem" aria-expanded="false" aria-label="Ikan Badut. Klik untuk melihat penjelasan">
       <img src="https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0?auto=format&fit=crop&w=600&q=60" alt="Ikan Badut" />
-      <div class="card-content">
-        <h2>Ikan Badut</h2>
-        <p>Ikan badut hidup berasosiasi dengan anemon laut. Warna cerahnya membantu mereka berkamuflase dan menarik perhatian di terumbu karang.</p>
+      <div class="card-title">Ikan Badut</div>
+      <div class="explanation">
+        Ikan badut hidup berasosiasi dengan anemon laut yang memberinya perlindungan. Warnanya yang cerah membantu dia berkamuflase di antara terumbu karang.
       </div>
     </article>
   </main>
 
   <footer>
-    &copy; 2024 Pengenalan Hewan Laut - Dibuat dengan cinta dari lautan.
+    &copy; 2024 Pengenalan Hewan Laut - Dibuat dengan interaksi dan cinta dari lautan.
   </footer>
+
+  <script>
+    // Toggle explanation on click or key form enter/space
+    document.querySelectorAll('.card').forEach(card => {
+      card.addEventListener('click', () => {
+        // Toggle this card's active state
+        card.classList.toggle('active');
+        let expanded = card.classList.contains('active');
+        card.setAttribute('aria-expanded', expanded);
+      });
+      card.addEventListener('keydown', e => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          card.click();
+        }
+      });
+    });
+  </script>
 </body>
 </html>
 
